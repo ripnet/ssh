@@ -4,7 +4,7 @@ Uses phpseclib and provides and easy to use interface for using SSH on certain d
 
 Install uses composer. https://getcomposer.org/download/
 
-```php
+```bash
 php composer.phar require ripnet/ssh
 ```
 
@@ -26,4 +26,3 @@ $output = $ssh->send("show version");
 | adva-825      | Adva 825                                  |
 | alcatel-sr    | Alcatel-Lucent (Nokia) TiMOS devices      |
 | adva-new      | Adva 206/114/etc                          |
-\
