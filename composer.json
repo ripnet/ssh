@@ -1,0 +1,20 @@
+{
+    "name": "ripnet/ssh",
+    "description": "SSH Library",
+    "type": "library",
+    "require": {
+        "phpseclib/phpseclib": "2.0.4"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tom Young",
+            "email": "ripnet@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ripnet\\ssh\\": "src/"
+        }
+    }
+}
