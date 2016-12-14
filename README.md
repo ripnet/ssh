@@ -5,7 +5,7 @@ Uses phpseclib and provides and easy to use interface for using SSH on certain d
 Install uses composer. https://getcomposer.org/download/
 
 ```bash
-php composer.phar require ripnet/ssh
+php composer.phar require ripnet/ssh dev-master
 ```
 
 Example
