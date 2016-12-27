@@ -21,6 +21,8 @@ class SSH {
     }
 
     public function login(string $username, string $password): bool {
+        if (false) echo $this->ssh->getServerIdentification();
+
         if (array_key_exists('bad', $this->adapter)) {
             $success = $this->ssh->login($username);
         } else {
@@ -37,21 +39,30 @@ class SSH {
             if (array_key_exists('possible_banner', $this->adapter)) {
                 $banner = '';
                 $i = 0;
-                $this->ssh->setTimeout(1);
+                $this->ssh->setTimeout(10);
                 do {
-                    $banner .= $this->ssh->read();
+                    $banner .= $this->ssh->read($this->adapter['prompt'], SSH2::READ_REGEX);
                     $i++;
+
+                    if (preg_match('/maximum session limit reached/', $banner)) {
+                        echo "Session request denied - maximum session limit reached.";
+                        return false;
+                    }
 
                     if (preg_match('/' . $this->adapter['possible_banner'][0] . '/', $banner)) {
                         $this->ssh->write($this->adapter['possible_banner'][1]);
                         $this->readPrompt();
                         break;
                     }
+                    if (preg_match($this->adapter['bad'], $banner)) {
+                        return false;
+                    }
                     if (preg_match($this->adapter['prompt'], $banner)) {
                         break;
                     }
+                    //print_r("banner: " . $banner . "\n");
                     //print "i: $i\n";
-                } while ($i <= 5);
+                } while ($i <= 10);
             } else {
                 $this->readPrompt();
             }
@@ -61,8 +72,10 @@ class SSH {
             }
         } else {
             print "nope";
+            return false;
         }
 
+        //var_dump("banner2: " . $banner);
         return $success;
     }
 

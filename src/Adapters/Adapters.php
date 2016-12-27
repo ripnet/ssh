@@ -21,7 +21,7 @@ class Adapters {
             'eol'             => "\r\n",
         ],
         'adva-new'   => [
-            'prompt'          => '/(?:^.*?--> |^--More--)/m',
+            'prompt'          => '/(?:^.*?--> |^--More--|assword: )/m',
             'possible_banner' => ['Do you wish to continue', "Y\r\n"],
             'eol'             => "\r\n",
             'bad'             => '/assword: /',
