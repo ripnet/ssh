@@ -71,7 +71,7 @@ class SSH {
                 $this->readPrompt();
             }
         } else {
-            print "nope";
+            //print "nope";
             return false;
         }
 
