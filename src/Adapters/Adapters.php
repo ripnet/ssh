@@ -4,6 +4,11 @@ namespace ripnet\ssh\Adapters;
 
 class Adapters {
     private static $adapters = [
+        'junos'      => [
+            'prompt'         => '/(?:#|>)$/m',
+            'disable_paging' => 'set cli screen-length 0',
+            'eol'            => "\n",
+        ],
         'cisco-ios'  => [
             'prompt'         => '/(?:#|>)$/m',
             'disable_paging' => 'terminal length 0',
