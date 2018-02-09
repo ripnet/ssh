@@ -67,8 +67,10 @@ class SSH {
                 $this->readPrompt();
             }
             if (array_key_exists('disable_paging', $this->adapter)) {
-                $this->writeln($this->adapter['disable_paging']);
-                $this->readPrompt();
+                foreach ($this->adapter['disable_paging'] as $cmd) {
+                    $this->writeln($cmd);
+                    $this->readPrompt();
+                }
             }
         } else {
             //print "nope";

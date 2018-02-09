@@ -6,17 +6,17 @@ class Adapters {
     private static $adapters = [
         'junos'      => [
             'prompt'         => '/> $/m',
-            'disable_paging' => 'set cli screen-length 0',
+            'disable_paging' => ['set cli screen-length 0', 'set cli screen-width 0'],
             'eol'            => "\n",
         ],
         'cisco-ios'  => [
             'prompt'         => '/(?:#|>)$/m',
-            'disable_paging' => 'terminal length 0',
+            'disable_paging' => ['terminal length 0'],
             'eol'            => "\n",
         ],
         'alcatel-sr' => [
             'prompt'          => '/\*?[AB]:.*?[#\$] /m',
-            'disable_paging'  => 'environment no more',
+            'disable_paging'  => ['environment no more'],
             'possible_banner' => ['Press any key to continue', 'Q'],
             'eol'             => "\n",
         ],
