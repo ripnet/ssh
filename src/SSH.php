@@ -90,6 +90,35 @@ class SSH {
     }
 
     public function send(string $command) {
+        if ($this->adapter['exec']) {
+            return $this->sendExec($command);
+        } else {
+            return $this->sendNonExec($command);
+        }
+    }
+
+    public function sendExec(string $command) {
+        $buffer = $this->ssh->exec(trim($command));
+        $results = [];
+        $do = true;
+        while ($do) {
+            $results = array_merge($results, explode($this->adapter['eol'], $buffer));
+            if (array_key_exists('paging', $this->adapter)) {
+                if (preg_match($this->adapter['paging'][0], $results[count($results) - 1])) {
+                    array_pop($results);
+                    $buffer = $this->ssh->exec($this->adapter['paging'][1]);
+                } else {
+                    $do = false;
+                }
+            } else {
+                $do = false;
+            }
+
+        }
+        return implode("\n", $results);
+    }
+
+    public function sendNonExec(string $command) {
         $this->ssh->setTimeout(10);
         $this->writeln(trim($command));
 
@@ -97,6 +126,7 @@ class SSH {
         $do = true;
         //$pad = [0, ''];
         while ($do) {
+//            print_r($this->readPrompt());
             $results = array_merge($results, explode($this->adapter['eol'], $this->readPrompt()));
             if (array_key_exists('paging', $this->adapter)) {
                 if (preg_match($this->adapter['paging'][0], $results[count($results) - 1])) {
