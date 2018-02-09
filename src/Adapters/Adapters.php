@@ -5,7 +5,7 @@ namespace ripnet\ssh\Adapters;
 class Adapters {
     private static $adapters = [
         'junos'      => [
-            'prompt'         => '/(?:#|>)$/m',
+            'prompt'         => '/> $/m',
             'disable_paging' => 'set cli screen-length 0',
             'eol'            => "\n",
         ],
