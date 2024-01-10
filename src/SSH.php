@@ -2,7 +2,7 @@
 
 namespace ripnet\ssh;
 
-use phpseclib\Net\SSH2;
+use phpseclib3\Net\SSH2;
 use ripnet\ssh\Adapters\Adapters;
 
 
@@ -54,8 +54,10 @@ class SSH {
                         $this->readPrompt();
                         break;
                     }
-                    if (preg_match($this->adapter['bad'], $banner)) {
-                        return false;
+                    if (array_key_exists('bad', $this->adapter)) {
+                        if (preg_match($this->adapter['bad'], $banner)) {
+                            return false;
+                        }
                     }
                     if (preg_match($this->adapter['prompt'], $banner)) {
                         break;
