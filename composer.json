@@ -3,7 +3,7 @@
     "description": "SSH Library",
     "type": "library",
     "require": {
-        "phpseclib/phpseclib": "2.0.4"
+        "phpseclib/phpseclib": "^3.0"
     },
     "license": "MIT",
     "authors": [
